@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{ctex}
+\usepackage{mathrsfs}
+\usepackage[ruled]{algorithm2e}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{geometry}
+\def\mbf#1{\mathbf{#1}}
+\geometry{margin=1in}
+
+
+\allowdisplaybreaks[2]
+\title{\LARGE\bf{Assignment 5}}
+\author{\Large\textit{金华溢 118033910111}}
+\begin{document}
+\maketitle
+\subsection* {Exercise 7.3}
+\subsubsection* {(a) Proof}
+Since $\mbf{\hat{f}}=\mbf{Sy}$, rewrite $y_i-\hat{f}(x_i)$ as follows:
+\begin{align*}
+    y_i-\hat{f}(x_i)&=y_i-[S_{i1},S_{i2},\cdots,S_{iN}] \times \mbf{y} \\
+    &=y_i - \sum\limits_{j=1}^N S_{ij}y_j \\
+    &=y_i-y_iS_{ii} -\sum\limits_{i\neq j}^N S_{ij}y_j
+\end{align*}
+Compared with equation(7.64), to prove (7.64) is to prove that:
+\begin{equation}
+    \hat{f}^{-i}(x_i) = \frac{\sum\limits_{j\neq i}^N S_{ij}y_j}{1-S_{ii}}
+\end{equation}
+In Section 5.4.1 \textbf{S} is written as
+$\mbf{X}(\mbf{X}^T\mbf{X} + \lambda\Omega_X)^{-1}\mbf{X}^T$
+where $\mbf{X}$ is a $N\times p$ matrix and 
+$(\mbf{X}^T\mbf{X} + \lambda\Omega_X)^{-1}$
+is a $p\times p$ matrix. We denote it as $\mbf{K}$:
+\begin{equation}
+    \mbf{K}=(\mbf{X}^T\mbf{X} + \lambda\Omega_X)^{-1}
+    =diag(K_1^{-1},K_2^{-1},\cdots,K_p^{-1})
+\end{equation}
+where $K_k = \sum_{i=1}^{N}x_{ik}^2+\lambda$, $k=1,2,\cdots,p$. 
+Then $\sum\limits_{j\neq i}^N S_{ij}y_j$ can be written as:
+\begin{equation}
+    x_i\mbf{K}(\mbf{X}^{-i})^T \mbf{y}^{-i}
+\end{equation}
+where $(\mbf{X}^{-i})^T = \left[x_1^T,\cdots,x_{i-1}^T,x_{i+1}^T,\cdots,x_N^T\right]$, and
+$\mathbf{y}^{-i} = \left[y_1 ,\cdots ,y_{i-1},y_{i+1},\cdots,y_N\right]^T$. 
+Also, $S_{ii}$ can be donate as:
+\begin{equation}
+    S_{ii}=x_i\mbf{K}x_i^T
+\end{equation}
+$\hat{f}^{-i}(x_i)$ can be written as follows:
+\begin{equation}
+    \hat{f}^{-i}(x_i) = x_i\mbf{K}^{-i} (\mbf{X}^{-i})^T \mbf{y}^{-i}
+\end{equation}
+where
+\begin{equation}
+    \mbf{K}^{-i} = diag({K_1^{-i}}^{-1},{K_2^{-i}}^{-1},\cdots,{K_p^{-i}}^{-1})
+\end{equation}
+\begin{equation}
+    K_j^{-i} = \sum\limits_{\substack{j=1\\ j\neq i}}^{N}x_{jk}^2+\lambda,\ k=1,2,\cdots,p
+\end{equation} 
+Now we can calculate $S_{ii}\hat{f}^{-i}(x_i)$ and have:
+\begin{equation}
+    S_{ii}\hat{f}^{-i}(x_i) = 
+    x_i\mbf{K}x_i^T x_i\mbf{K}^{-i} (\mbf{X}^{-i})^T \mbf{y}^{-i}
+    \label{siifi}
+\end{equation}
+where 
+\begin{equation*}
+    \mbf{K}x_i^T x_i\mbf{K}^{-i} = 
+    diag(x_{i1}^2 K_1^{-1} {K_1^{-i}}^{-1}, 
+    x_{i2}^2 K_2^{-1} {K_2^{-i}}^{-1}, \cdots,
+    x_{ip}^2 K_p^{-1} {K_p^{-i}}^{-1})
+\end{equation*}
+Since
+\begin{align*}
+    {K_k^{-i}}^{-1} - K_k^{-1} &=(K_k-K_k^{-i})  K_k^{-1} {K_k^{-i}}^{-1}\\
+    &=x_{ik}^2 K_k^{-1} {K_k^{-i}}^{-1}
+\end{align*}
+Eq.(\ref{siifi}) equals
+\begin{equation}
+    x_i(\mbf{K}^{-i}-\mbf{K})(\mbf{X}^{-i})^T \mbf{y}^{-i} =\
+    \hat{f}^{-i}(x_i) - \sum\limits_{j\neq i}^N S_{ij}y_j
+    \label{fisij}
+\end{equation}
+with equation (\ref{siifi}) and (\ref{fisij}), equation(7.64) is proved:
+$$S_{ii}\hat{f}^{-i}(x_i) = \hat{f}^{-i}(x_i)-\sum\limits_{j\neq i}^N S_{ij}y_j\\
+\Leftrightarrow\ \hat{f}^{-i}(x_i) = \frac{\sum\limits_{j\neq i}^N S_{ij}y_j}{1-S_{ii}}
+$$
+\end{document}
+
+
